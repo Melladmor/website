@@ -1,0 +1,538 @@
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" type="text/css" href="css">
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="js/myscript.js"></script>
+    <title>معرض السيارات</title>
+      <style>
+		  body {
+			  background-color: cornflowerblue;
+			  
+		  }
+		
+		  .popup {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 400px;
+          height: 400px;
+          background-color: rgb(255, 255, 255);
+          border: 1px solid rgb(0, 0, 0);
+          padding: 20px;
+          z-index: 9999;
+        
+	}
+	   .popup{
+		background-color:yellow;
+		border: 1px solid black;
+		padding: 10px;
+		
+	}
+		  
+		  table {
+border-collapse: collapse;
+width: 100%;
+}
+/* تعريف تنسيق الخلية */
+td {
+padding: 10px;
+border: 1px solid black;
+text-align: center;
+}
+		  select {
+			  display: inline-block;
+		  }
+      </style>
+      <script>
+        function showPopup() {
+          document.getElementById("popup").style.display = "block";
+        }
+         
+      
+
+      
+        function closePopup() {
+          document.getElementById("popup").style.display = "none";
+        }
+        
+      
+        
+
+        function showForm() {
+          const form = document.getElementById("form");
+          if (document.getElementById("show-form").checked) {
+            form.style.display = "block";
+          } else {
+            form.style.display = "none";
+          }
+        }
+        
+        
+        function validateform()
+        { 
+		
+	
+ 
+		 var message="";
+		 var result=document.getElementById("result");
+		 result.innerHTML="" ;	
+         var full_name =applicationForm.full_name.value;
+		 var national_number=applicationForm.national_number.value;	
+		 
+		 var bdate =applicationForm.bdate.value;		
+         var mobile = applicationForm.mobile.value;
+		 var email=applicationForm.email.value;
+		 var unitValue=applicationForm.unitValue.value;
+	     var userCaptcha= applicationForm.captcha.value;
+		 var systemCaptcha = document.getElementById("code").innerHTML; 
+		 
+		
+	 
+         var name_condition = full_name.search(/^[\u0600-\u06FF]+ ?[\u0600-\u06FF]+/);
+         if (full_name.length <=0 ) message+="<br> حقل الاسم مطلوب"; 
+		else if(name_condition<0) message+="<br>خطأ في الاسم";
+		 
+	
+		 var national_number_condition =national_number.search(/^(01|02|03|04|05|06|07|08|09|10|11|12|13|14)\d{9}$/);
+       if (national_number.length <=0 ) message+="<br> حقل الرقم الوطني مطلوب"; 
+	    else if(national_number_condition<0) message+="<br>خطأ في الرقم الوطني";
+	
+		 var mobile_condition = mobile.search(/^0(93|94||95|96|97|98|99)\d{7}$/);
+        if (mobile.length <=0 ) message+="<br> حقل رقم الموبايل مطلوب"; 
+	  else if(mobile_condition<0) message+="<br>خطأ في رقم الموبايل"; 
+	 
+	 
+       	 var date_condition = bdate.search(/^(0[1-9]|[1-2][0-9]|3[0-1])-(0[1-9]|1[0-2])-\d{4}$/);
+         if (bdate.length <=0 ) message+="<br> حقل تاريخ الولادة مطلوب"; 
+	 else if(date_condition<0) message+="<br>خطأ في تاريخ الولادة"; 
+    
+	  if (email.length <=0 ) message+="<br> حقل البريد الالكتروني مطلوب";
+	  if (unitValue.length <=0 ) message+="<br> حقل العدد مطلوب";
+	  
+         var captcha_condition = systemCaptcha===userCaptcha;
+         if (userCaptcha.length <=0 ) message+="<br> حقل التحقق مطلوب";
+		else if(!captcha_condition) message+="<br>خطأ في رمز التحقق"; 
+   
+ 
+   if(message!="")
+   {
+	     
+	   result.innerHTML=message+"<br>" ;
+      result.style.display='block';
+    }
+    else
+    {
+		  result.innerHTML="" ;
+	  result.style.display='none';
+	   
+	showBill(unitValue);
+	
+	  
+    }
+		 
+  
+   return false;
+       
+ }
+ function showbill(unitValue){
+	  var bill=Number(unitValue)*Number(carCostWithTax.innerText);
+	 alert("The cost is "+bill);
+ }
+
+      </script>
+</head
+><body>
+	<header>
+		<nav>
+			<p><a href="home.html">الرئيسية</a></p>
+			<p><a href="aboutus.html">من نحن</a></p>
+		</nav>
+		<h1>معرض السيارات</h1>
+	</header>
+	
+	<section class="cars">
+		<ul>
+			<table border="1" width="100%" > 
+            <caption></caption>    
+        <thead>
+                  <tr>
+                    <th>صورة</th>
+                    <th>نوع السيارة</th>
+                    <th>قيمة الإيجار</th>
+                    <th>نوع الإيجار</th>
+                    <th>تاريخ الإصدار</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><img src="car/ser2009.jpg" id="image1" alt="صورة السيارة" style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>CHERY A11</h2>
+                        <p>لون السيارة فضي غيار عادي سيارة من الفئة المتوسطة</p>
+                        <p>
+
+                          - المحرك: محرك بنزين سعة 1.3 لتر، يولد قوة 87 حصانًا وعزم دوران يصل إلى 114 نيوتن متر.
+                          - ناقل الحركة: يأتي بناقل حركة يدوي بخمس سرعات.
+                          - الأبعاد: الطول 3.7 متر، العرض 1.6 متر، الارتفاع 1.4 متر، والمسافة بين محوري العجلات 2.34 متر.
+                          - الوزن: يبلغ وزن السيارة حوالي 1120 كيلوجرام</p>
+
+                          
+                         
+                    
+                        <label for="show-form">متابعة</label>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <form id="form" onsubmit="return validateform()">
+                         
+                          <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{11}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> 
+                          <button onclick="closePopup()">إغلاق</button></td>
+                    
+                    <td>CHERY A11</td>
+                    <td>150000L.S</td>
+                    <td> يومي</td>
+                    <td>2009</td>
+                  
+                  </tr>
+                  <tr>
+                    <td><img src="car/KIA2010.jpg" alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup2" class="popup">
+                        <h2>KIA RIO</h2>
+                        <p>كيا ريو لون ابيض اتوماتيك فئة متوسطة</p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <label for="show-form2">متابعة</label>
+                        <input type="checkbox" id="show-form2" onclick="showBill()">
+                        <form id="form2" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    <td>KIA RIO</td></a>
+                    <td>170000L.S</td>
+                    <td>يومي</td>
+                    <td>2010</td>
+                  </tr>
+                  <tr>
+                    <td><img src="car/msd2010.jpg" alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>MAZDA 2</h2>
+                        <p>لون فضي لامع </p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <label for="show-form">متابعة</label>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <form id="form" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    
+                    <td>MAZDA 2</td>
+                    <td>185000L.S</td>
+                    <td> يومي</td>
+                    <td>2010</td>
+                  </tr>
+                  <tr>
+                    <td><img src="car/b2010.jpg" alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>نافذة العرض المنبثقة</h2>
+                        <p>يمكن وضع أي محتوى هنا، مثل النصوص والصور والفيديو والنماذج.</p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <label for="show-form">متابعة</label>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <form id="form" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    <td>PEUGEOT</td>
+                    <td>186000L.S</td>
+                    <td> يومي</td>
+                    <td>2010</td>
+                  </tr>
+                  <tr>
+                    <td><img src="car/M2010.jpg" alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>نافذة العرض المنبثقة</h2>
+                        <p>يمكن وضع أي محتوى هنا، مثل النصوص والصور والفيديو والنماذج.</p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <label for="show-form">متابعة</label>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <form id="form" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    <td>MERCEDES E550</td>
+                    <td>200000L.S</td>
+                    <td> يومي</td>
+                    <td>2010</td>
+                  </tr>
+                  <tr>
+                    <td><img src="car/RA.jpg " alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>نافذة العرض المنبثقة</h2>
+                        <p>يمكن وضع أي محتوى هنا، مثل النصوص والصور والفيديو والنماذج.</p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <label for="show-form">متابعة</label>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <form id="form" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    <td>RANGE ROVer</td>
+                    <td>210000L.S</td>
+                    <td> يومي</td>
+                    <td>2010</td>
+                  </tr>
+                  <tr>
+                    <td><img src="car/BYNTLE2013.jpg" alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>نافذة العرض المنبثقة</h2>
+                        <p>يمكن وضع أي محتوى هنا، مثل النصوص والصور والفيديو والنماذج.</p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <label for="show-form">متابعة</label>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <form id="form" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    <td>BENTLEY</td>
+                    <td>250000L.S</td>
+                    <td> يومي</td>
+                    <td>2013</td>
+                  </tr>
+                  <tr>
+                    <td><img src="car/bmwm3.jpg" alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>نافذة العرض المنبثقة</h2>
+                        <p>يمكن وضع أي محتوى هنا، مثل النصوص والصور والفيديو والنماذج.</p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <label for="show-form">متابعة</label>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <form id="form" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    <td>BMW M3</td>
+                    <td>300000L.S</td>
+                    <td> يومي</td>
+                    <td>2013</td>
+                  </tr>
+                  <tr>
+                    <td><img src="car/tok2014.jpg" alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>نافذة العرض المنبثقة</h2>
+                        <p>يمكن وضع أي محتوى هنا، مثل النصوص والصور والفيديو والنماذج.</p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <label for="show-form">متابعة</label>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <form id="form" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    <td>TOYOTA CAMRY</td>
+                    <td>290000L.S</td>
+                    <td> يومي</td>
+                    <td>2014</td>
+                  </tr>
+                  <tr>
+                    <td><img src="car/bmwm4.jpg" alt="صورة السيارة"style="width:120px ;height: 100px;"onclick="showPopup()">
+                      <div id="popup" class="popup">
+                        <h2>نافذة العرض المنبثقة</h2>
+                        <p>يمكن وضع أي محتوى هنا، مثل النصوص والصور والفيديو والنماذج.</p>
+                        <button onclick="closePopup()">إغلاق</button>
+                        <input type="checkbox" id="show-form" onclick="showForm()">
+                        <label for="show-form">متابعة</label>
+                        
+                        <form id="form" onsubmit="return validateForm()">
+                            <label for="full-name">الاسم الكامل:</label>
+                            <input type="text" id="full-name" name="full-name" pattern="[أ-ي ]+" required>
+                          
+                            <label for="national-id">الرقم الوطني:</label>
+                            <input type="text" id="national-id" name="national-id" pattern="[0-9]{2}(0[1-9]|1[0-4])[0-9]{6}" required>
+                          
+                            <label for="birthdate">تاريخ الولادة:</label>
+                            <input type="date" id="birthdate" name="birthdate" required>
+                          
+                            <label for="mobile-number">رقم الموبايل:</label>
+                            <input type="tel" id="mobile-number" name="mobile-number" pattern="(09)(1|3|4|5|6|8)[0-9]{7}" required>
+                          
+                            <label for="email">البريد الإلكتروني:</label>
+                            <input type="email" id="email" name="email" required>
+                          
+                            <label for="rent-duration">مدة الإيجار:</label>
+                            <input type="number" id="rent-duration" name="rent-duration" required>
+                          
+                            <input type="submit" value="إرسال">
+                          </form> </td>
+                    <td>BMW M4</td>
+                    <td>800000L.S</td>
+                    <td> يومي</td>
+                    <td>2015</td>
+                  </tr>
+                </tbody>
+              </table>
+
+
+
+</body>
+</html>
+
+		
+	

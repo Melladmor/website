@@ -1,0 +1,116 @@
+table {
+	border-collapse: collapse;
+	width: 100%;
+	margin-bottom: 20px;
+	font-size: 16px;
+}
+
+th, tb {
+	text-align: left;
+	padding: 12px;
+	border: 1px solid #ddd;	
+}
+
+h1 {
+	text-align: center;
+	margin-top: 50px;
+	color: black;
+	background-color: chartreuse;
+	padding: 30px;
+}
+h2 {
+	color: indigo;
+}
+th{
+	background-color: darkblue;
+	color: wheat;
+	
+}
+
+
+tboby tr:nth-child(even){
+	background-color: #f2f2f2;;
+	
+}
+
+tbody tr:hover{
+	background-color: #ddd;
+	
+}
+
+@media screen and (max-wildth: 600px){
+	table, tbody, tr, th, td {
+		display: block;
+	
+}
+	
+	th{
+		text-align: center;
+		
+	}
+	
+	tbody tr{
+		border: none;
+		margin-bottom: 20px;
+		
+	}
+	
+	tb{
+		border: none;
+		padding: 6px;
+		position: relative;
+		text-align: center;
+		
+	}
+	
+	tb:before{
+		content: attr(data-label);
+		position: absolute;
+		left: 0;
+		width: 50%;
+		padding-left: 12px;
+		font-weight: bold;
+		text-align: left;
+		
+	}
+	  body {
+			  background-color: cornflowerblue;
+			  
+		  }
+		
+		  .popup {
+          display: none;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 400px;
+          height: 400px;
+          background-color: rgb(255, 255, 255);
+          border: 1px solid rgb(0, 0, 0);
+          padding: 20px;
+          z-index: 9999;
+        
+	}
+	   .popup{
+		background-color:yellow;
+		border: 1px solid black;
+		padding: 10px;
+		
+	}
+		  
+		  table {
+border-collapse: collapse;
+width: 100%;
+}
+/* تعريف تنسيق الخلية */
+td {
+padding: 10px;
+border: 1px solid black;
+text-align: center;
+}
+		  select {
+			  display: inline-block;
+		  }
+	
+	
